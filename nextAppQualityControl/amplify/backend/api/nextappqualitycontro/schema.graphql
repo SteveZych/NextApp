@@ -10,23 +10,32 @@ type User @model {
 type Reagent @model{
   id: ID!
   name: String!
+  qualityControlInterval: String!
 }
 
 type Item @model {
   id: ID!
   user: User @belongsTo
-  name: String!
+  reagent: Reagent @hasOne
   expirationDate: String!
   receivedDate: String!
-  qualityControl: [QualityControl] @hasMany
   quantity: Float!
-  reagen: Reagent @hasOne
+  updates: [UpdatedItem] @hasMany
+  qualityControl: [QualityControl] @hasMany
+}
+
+tyep UpdatedItem @model {
+  id: ID!
+  item: Item @belongsTo
+  addedOrRemoved: String!
+  dateUpdated: String!
+  quantity: Float!
 }
 
 type QualityControl @model {
   id: ID!
   reagent: Item @belongsTo
-  performedDate:
+  datePerformed: String!
   performedBy: String!
   comment: String!
 }
