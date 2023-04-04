@@ -4,11 +4,13 @@ input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONL
 
 type User @model {
   id: ID!
+  reagnets: [Reagent] @hasMany
   items: [Item] @hasMany
 }
 
 type Reagent @model{
   id: ID!
+  user: User @belongsTo
   name: String!
   qualityControlInterval: String!
 }
