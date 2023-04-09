@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 
 // getServerSideProps to fetch available reagents to choose from 
-// passed as props to UpdateForm as a list of reagents users can choose from
+// passed as props to UpdateItemForm as a list of reagents users can choose from
 
 
-const UpdateForm = () => {
+const UpdateItemForm = () => {
 
     //State to keep track of the form
-    const [reagent, setReagent] = useState({
+    const [item, setItem] = useState({
         reagentName: "",
         expirationDate: "",
         receivedDate: "",
@@ -17,4 +17,4 @@ const UpdateForm = () => {
 
 }
 
-export default UpdateForm;
+export default UpdateItemForm;
