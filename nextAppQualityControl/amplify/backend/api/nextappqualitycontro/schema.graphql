@@ -7,22 +7,23 @@ type Reagent @model{
   user: String!
   name: String!
   qualityControlInterval: String!
-  item: [Item] @hasMany
+  item: [Item] @hasMany (indexName: "byReagent", fields: ["id"])
 }
 
 type Item @model {
   id: ID!
-  reagent: Reagent @belongsTo
+  reagentID: ID! @index(name: "byReagent")
+  reagent: Reagent @belongsTo (fields: ["reagentID"])
   expirationDate: String!
   receivedDate: String!
   quantity: Float!
-  updates: [UpdatedItem] @hasMany
-  qualityControl: [QualityControl] @hasMany
+  updates: [UpdatedItem] @hasMany (indexName: "byItem", fields: ["id"])
+  qualityControl: [QualityControl] @hasMany (indexName: "byItem", fields: ["id"])
 }
 
 type UpdatedItem @model {
   id: ID!
-  item: Item @belongsTo
+  itemID: ID! @index (name: "byItem")
   addedOrRemoved: String!
   dateUpdated: String!
   quantity: Float!
@@ -30,7 +31,7 @@ type UpdatedItem @model {
 
 type QualityControl @model {
   id: ID!
-  reagent: Item @belongsTo
+  itemID: ID! @index (name: "byItem")
   datePerformed: String!
   performedBy: String!
   comment: String!
