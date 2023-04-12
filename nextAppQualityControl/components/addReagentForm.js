@@ -1,7 +1,15 @@
 import React, {useState, useEffect} from 'react';
+import { Amplify, API, graphqlOperation } from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+function getServerSideProps(){
 
 
-const AddReagentForm = () => {
+    return {props: {data}}
+}
+
+
+const AddReagentForm = (props) => {
 
     //State to keep track of the form
     const [reagent, setReagent] = useState({
@@ -12,7 +20,13 @@ const AddReagentForm = () => {
     //UseEffect to grab the user id
 
     function handleSubmit(){
-        //push the reagent to the database with the users id
+        const reagentParams = {
+            input: reagent,
+        };
+        
+        const result = await API.graphql(graphqlOperation(createReagent, reagentParams));
+        const post = result.data.createReagent;
+        
     }
 
     return(
